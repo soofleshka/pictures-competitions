@@ -1,1 +1,1 @@
-#pet-project: voting between two pictures
+# pet-project: voting between pairs of pictures

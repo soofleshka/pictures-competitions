@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pictures competitions</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- @import "./html/header.html" -->
+    <main>
+      <div class="container">
+        <h1 class="text-center">Create competition</h1>
+        <div class="errors"></div>
+        <form action="" class="competition-creator">
+          <div class="row gy-2">
+            <div class="col-md-8 text-md-end text-center">
+              <label for="competitionTitle">Competition title:</label>
+              <input
+                type="text"
+                name="competitionTitle"
+                id="competitionTitle"
+              />
+            </div>
+            <div class="col-md-4 text-md-start text-center">
+              <button type="submit" class="btn btn-success">
+                Create competition
+              </button>
+            </div>
+            <div class="col-md-8 text-md-end text-center">
+              <label for="">Choose pictures</label>
+              <input type="file" name="" id="" multiple />
+            </div>
+            <div class="col-md-4 text-md-start text-center">
+              <button class="btn btn-primary">Add</button>
+            </div>
+            <div class="col-md-8 text-md-end text-center">
+              <label for="">Picture from url</label>
+              <input type="url" name="" id="" multiple />
+            </div>
+            <div class="col-md-4 text-md-start text-center">
+              <button class="btn btn-primary">Add</button>
+            </div>
+          </div>
+        </form>
+        <div class="row p-3 g-3">
+          <div class="col-6 col-sm-3">
+            <img
+              src="images/pexels-photo-2469122.jpeg"
+              alt=""
+              class="img-fluid"
+            />
+            <a href="" class="btn btn-danger d-block mt-1">Delete</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- @import "./html/footer.html" -->
+    <script src="bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>

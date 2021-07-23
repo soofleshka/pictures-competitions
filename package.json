@@ -1,0 +1,28 @@
+{
+  "name": "pictures-competitions",
+  "version": "1.0.0",
+  "description": "pet-project: voting between pairs of pictures",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soofleshka/pictures-competitions.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "React",
+    "Mangoose"
+  ],
+  "author": "Artyom Akasevich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soofleshka/pictures-competitions/issues"
+  },
+  "homepage": "https://github.com/soofleshka/pictures-competitions#readme",
+  "devDependencies": {
+    "bootstrap": "^5.0.2"
+  }
+}

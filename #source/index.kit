@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pictures competitions</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- @import "./html/header.html" -->
+    <main>
+      <div class="container">
+        <h1 class="text-center">Welcome</h1>
+        <form action="" class="text-center">
+          <label for="competitionsSelect">Choose competition</label>
+          <select name="competitionsSelect" id="competitionsSelect">
+            <option selected="selected" disabled>Competitions</option>
+            <option value="Чебурашка">Competition 1</option>
+            <option value="Чебурашка">Competition 2</option>
+            <option value="Чебурашка">Competition 3</option>
+            <option value="Чебурашка">Competition 4</option>
+          </select>
+          <div class="copetition-actions p-2"></div>
+          <button type="submit" class="btn btn-success">
+            Start competition
+          </button>
+          <a href="rating.html" class="btn btn-primary">Pictures rating</a>
+        </form>
+        <div class="competition-pictures row py-3 gy-3">
+          <h2 class="text-center">Round 1/8</h2>
+          <div class="col-6">
+            <a href="" class="picture"
+              ><img
+                src="images/pexels-photo-2469122.jpeg"
+                alt=""
+                class="img-fluid"
+            /></a>
+          </div>
+          <div class="col-6">
+            <a href="" class="picture"
+              ><img
+                src="images/pexels-photo-4431922.jpeg"
+                alt=""
+                class="img-fluid"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- @import "./html/footer.html" -->
+    <script src="bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>
