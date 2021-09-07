@@ -1,0 +1,132 @@
+:root {
+  --header-footer-bg: indigo;
+  --header-footer-color: orange;
+  --header-footer-height: 50px;
+}
+
+h1,
+h3 {
+  text-align: center;
+}
+
+.navbar {
+  padding: 0;
+  background: var(--header-footer-bg);
+}
+
+.my-nav-link,
+.navbar-toggler {
+  height: var(--header-footer-height);
+}
+
+.navbar-expand-sm .navbar-nav .my-nav-link {
+  padding: 0 1.5em;
+}
+
+.navbar-dark .navbar-nav .my-nav-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: var(--header-footer-height);
+  color: var(--header-footer-color);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 575.98px) {
+  .my-nav-link {
+    padding-left: 0.3em;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+}
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .my-nav-link:hover {
+  color: var(--header-footer-bg);
+  background: var(--header-footer-color);
+}
+
+#navbarNav {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 991.98px) {
+  .navbar {
+    width: 100%;
+  }
+}
+main {
+  min-height: calc(100vh - (2 * var(--header-footer-height)));
+}
+
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #fff;
+  background: var(--header-footer-bg);
+  height: var(--header-footer-height);
+}
+footer a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.competition-picture{
+  max-width: 100%;
+  height: 500px;
+}
+
+
+.picture {
+  height: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.competition-creator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.competition-creator > div {
+  margin: 0.5em 0;
+}
+
+.place-container {
+  text-align: center;
+}

@@ -6,8 +6,8 @@ app.use(express.json());
 
 app.use('/api/competition', competitionRouter);
 
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/public'));
 
 app.use((req, res) => res.status(404).send('Not found'));
 
-app.listen(3000, () => console.log('Server started on port 3000...'));
+app.listen(8000, () => console.log('Server started on port 8000...'));

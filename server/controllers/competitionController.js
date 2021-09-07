@@ -1,32 +1,32 @@
 const collection = {
   competitions: [
     {
-      title: 'exampleCompetition',
+      title: "exampleCompetition",
       pictureLinks: [
-        'images/exampleCompetition/pexels-photo-2469122.jpeg',
-        'images/exampleCompetition/pexels-diogo-brandao-3785629.jpg',
-        'images/exampleCompetition/pexels-photo-5277691.jpeg',
-        'images/exampleCompetition/pexels-photo-4431922.jpeg',
-        'images/exampleCompetition/pexels-photo-2469122.jpeg',
-        'images/exampleCompetition/pexels-photo-2469122.jpeg',
+        "images/exampleCompetition/pexels-photo-2469122.jpeg",
+        "images/exampleCompetition/pexels-diogo-brandao-3785629.jpg",
+        "images/exampleCompetition/pexels-photo-5277691.jpeg",
+        "images/exampleCompetition/pexels-photo-4431922.jpeg",
+        "images/exampleCompetition/pexels-photo-2469122.jpeg",
+        "images/exampleCompetition/pexels-photo-2469122.jpeg",
       ],
     },
     {
-      title: 'exampleCompetition1',
+      title: "exampleCompetition1",
       pictureLinks: [
-        'images/exampleCompetition/pexels-photo-2469122.jpeg',
-        'images/exampleCompetition/pexels-diogo-brandao-3785629.jpg',
-        'images/exampleCompetition/pexels-photo-5277691.jpeg',
-        'images/exampleCompetition/pexels-photo-4431922.jpeg',
+        "images/exampleCompetition1/pexels-photo-2469122.jpeg",
+        "images/exampleCompetition1/pexels-diogo-brandao-3785629.jpg",
+        "images/exampleCompetition1/pexels-photo-5277691.jpeg",
+        "images/exampleCompetition1/pexels-photo-4431922.jpeg",
       ],
     },
     {
-      title: 'exampleCompetition2',
+      title: "exampleCompetition2",
       pictureLinks: [
-        'images/exampleCompetition/pexels-photo-2469122.jpeg',
-        'images/exampleCompetition/pexels-diogo-brandao-3785629.jpg',
-        'images/exampleCompetition/pexels-photo-5277691.jpeg',
-        'images/exampleCompetition/pexels-photo-4431922.jpeg',
+        "images/exampleCompetition2/pexels-photo-2469122.jpeg",
+        "images/exampleCompetition2/pexels-diogo-brandao-3785629.jpg",
+        "images/exampleCompetition2/pexels-photo-5277691.jpeg",
+        "images/exampleCompetition3/pexels-photo-4431922.jpeg",
       ],
     },
   ],
@@ -37,7 +37,7 @@ exports.getCompetitions = (req, res) => {
 };
 
 exports.getCompetitionByTitle = (req, res) => {
-  const competitionTitle = req.params['competitionTitle'];
+  const competitionTitle = req.params["competitionTitle"];
 
   res.json(
     JSON.stringify(
