@@ -1,3 +1,4 @@
+const path = require("path");
 const collection = {
   competitions: [
     {
@@ -48,8 +49,17 @@ exports.getCompetitionByTitle = (req, res) => {
 };
 
 exports.createCompetition = (req, res) => {
+  // console.log(1, req.body);
+  // console.log(2, req.files);
+
   if (!req.body) res.sendStatus(400);
-  const newCompetition = req.body;
-  collection.competitions.push(newCompetition);
+  const relativePath = path.join("images", req.body.competitionTitle);
+  const newCompetition = {
+    title: req.body.competitionTitle,
+    pictureLinks: req.files.map((file) =>
+      path.join(relativePath, file.filename)
+    ),
+  };
+  collection.competitions.push({ ...newCompetition });
   res.json(JSON.stringify(newCompetition));
 };
