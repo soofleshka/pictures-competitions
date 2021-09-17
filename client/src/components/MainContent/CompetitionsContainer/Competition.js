@@ -1,45 +1,53 @@
 import CompetitionPictures from "./CompetitionPictures";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addPictureToNextCompetition,
+  createNextCompetition,
+  resetCompetition,
+  setCurrentCompetition,
+  setCurrentRound,
+  setIsCompetitionStarted,
+  setRoundsCount,
+} from "../../../redux-toolkit/competitionReducer";
 
-const initialCompetition = {
-  title: "",
-  pictureLinks: [],
-};
-
-const Competition = ({ competition, setCompetition, setCompetitionWinner }) => {
-  const [currentRound, setCurrentRound] = useState(1);
-  const [roundsCount, setRoundsCount] = useState(1);
-  const [currentCompetition, setCurrentCompetition] = useState(competition);
-  const [nextCompetition, setNextCompetition] = useState({
-    ...initialCompetition,
-  });
+const Competition = ({ setCompetition, setCompetitionWinner }) => {
+  const currentRound = useSelector(
+    (state) => state.competitionPage.currentRound
+  );
+  const roundsCount = useSelector((state) => state.competitionPage.roundsCount);
+  const nextCompetition = useSelector(
+    (state) => state.competitionPage.nextCompetition
+  );
+  const currentCompetition = useSelector(
+    (state) => state.competitionPage.currentCompetition
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (currentCompetition.pictureLinks.length === 1) {
-      setCompetitionWinner(currentCompetition);
-      setCompetition(undefined);
+      dispatch(setCompetitionWinner(currentCompetition));
+      dispatch(setIsCompetitionStarted(false));
+      dispatch(setCompetition(undefined));
+    } else {
+      const calculatedRoundsCount = Math.round(
+        currentCompetition.pictureLinks.length / 2
+      );
+      dispatch(setRoundsCount(calculatedRoundsCount));
     }
-    setRoundsCount(Math.round(currentCompetition.pictureLinks.length / 2));
-  }, [currentCompetition, setCompetition, setCompetitionWinner]);
+  }, [currentCompetition, setCompetition, setCompetitionWinner, dispatch]);
 
   useEffect(() => {
     if (currentRound > roundsCount) {
-      setCurrentCompetition(nextCompetition);
-      setNextCompetition({ ...initialCompetition });
-      setCurrentRound(1);
+      dispatch(setCurrentCompetition(nextCompetition));
+      dispatch(createNextCompetition());
+      dispatch(setCurrentRound(1));
     }
-  }, [currentRound, roundsCount, nextCompetition]);
+  }, [currentRound, roundsCount, nextCompetition, dispatch]);
 
   const pictureClickHandler = (e) => {
-    setNextCompetition((nc) => ({
-      ...nc,
-      title: currentCompetition.title,
-      pictureLinks: [
-        ...nc.pictureLinks,
-        currentCompetition.pictureLinks[e.target.dataset.index],
-      ],
-    }));
-    setCurrentRound((cr) => cr + 1);
+    dispatch(addPictureToNextCompetition(e.target.dataset.index));
+    dispatch(setCurrentRound(currentRound + 1));
   };
 
   return (
@@ -54,7 +62,6 @@ const Competition = ({ competition, setCompetition, setCompetitionWinner }) => {
         )}
       </h2>
       <CompetitionPictures
-        appender={(currentRound - 1) * 2}
         currentCompetition={currentCompetition}
         pictureLinks={
           currentCompetition
@@ -68,7 +75,7 @@ const Competition = ({ competition, setCompetition, setCompetitionWinner }) => {
       />
       <button
         onClick={() => {
-          setCompetition(undefined);
+          dispatch(resetCompetition());
         }}
         className="btn btn-primary d-block m-auto my-3"
       >

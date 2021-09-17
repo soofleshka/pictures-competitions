@@ -1,67 +1,41 @@
-import React, { useState } from "react";
-import axios from "axios";
-
-const corsProxyUrl = "https://cors-anywhere.herokuapp.com/";
-
-const fileTypes = ["image/jpeg", "image/jpg", "image/png"];
-function validFileType(file) {
-  for (let i = 0; i < fileTypes.length; i++) {
-    if (file.type === fileTypes[i]) {
-      return true;
-    }
-  }
-  return false;
-}
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFilesFromInput,
+  addFilesFromUrl,
+  deleteFile,
+  sendCompetition,
+  setTitle,
+  setUrlFileInput,
+} from "../../../redux-toolkit/createCompetitionReducer";
 
 const CreateCompetition = () => {
-  const [files, setFiles] = useState([]);
-  const [title, setTitle] = useState("");
-  const [urlFileInput, setUrlFileInput] = useState("");
+  const files = useSelector((state) => state.createCompetitionPage.files);
+  const title = useSelector((state) => state.createCompetitionPage.title);
+  const urlFileInput = useSelector(
+    (state) => state.createCompetitionPage.urlFileInput
+  );
+  const dispatch = useDispatch();
+
   const filesInput = React.createRef();
 
   const addFilesFromInputClickHandler = () => {
-    const addedFiles = [];
-    for (let file of filesInput.current.files) {
-      if (validFileType(file)) addedFiles.push(file);
-    }
-
-    setFiles((files) => [...files, ...addedFiles]);
+    dispatch(addFilesFromInput(filesInput.current.files));
     filesInput.current.value = null;
   };
-  const addFilesFromUrlClickHandler = async () => {
-    const response = await fetch(corsProxyUrl + urlFileInput);
-    const blob = await response.blob();
-    if (validFileType(blob)) {
-      const fileName = urlFileInput.substring(
-        urlFileInput.lastIndexOf("/") + 1,
-        urlFileInput.length
-      );
-      const addedFile = new File([blob], fileName);
-      setFiles((files) => [...files, addedFile]);
-      setUrlFileInput("");
-    }
+  const addFilesFromUrlClickHandler = () => {
+    dispatch(addFilesFromUrl(urlFileInput));
   };
 
   const deleteFileClickHandler = (e) => {
     e.preventDefault();
     const index = Number(e.target.dataset["index"]);
-    setFiles(files.filter((_, ind) => ind !== index));
+    dispatch(deleteFile(index));
   };
 
   const createCompetitionClickHandler = () => {
-    const formData = new FormData();
-    formData.append("competitionTitle", title);
-    for (let file of files) {
-      formData.append("images", file, file.name);
-    }
-
-    console.log(formData);
-    axios
-      .post("/api/competition/create", formData, {
-        // headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((response) => console.log(response));
-    console.log(files);
+    dispatch(sendCompetition(title, files));
+    alert(`${title} created!`);
   };
 
   return (
@@ -76,7 +50,7 @@ const CreateCompetition = () => {
             name="competitionTitle"
             id="competitionTitle"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => dispatch(setTitle(e.target.value))}
           />
         </div>
         <div className="col-md-4 text-md-start text-center">
@@ -112,7 +86,7 @@ const CreateCompetition = () => {
             id=""
             multiple
             value={urlFileInput}
-            onChange={(e) => setUrlFileInput(e.target.value)}
+            onChange={(e) => dispatch(setUrlFileInput(e.target.value))}
           />
         </div>
         <div className="col-md-4 text-md-start text-center">

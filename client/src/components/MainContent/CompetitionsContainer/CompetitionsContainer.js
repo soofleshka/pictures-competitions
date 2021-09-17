@@ -1,37 +1,53 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Competition from "./Competition";
+import {
+  createNextCompetition,
+  getCompetitions,
+  setCompetition,
+  setCompetitionWinner,
+  setCurrentCompetition,
+  setIsCompetitionStarted,
+} from "../../../redux-toolkit/competitionReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const CompetitionsContainer = () => {
-  const [competition, setCompetition] = useState(undefined);
-  const [competitions, setCompetitions] = useState([]);
-  const [isSelectedCompetition, setIsSelectedCompetition] = useState(false);
-  const [competitionWinner, setCompetitionWinner] = useState(null);
+  const competitions = useSelector(
+    (state) => state.competitionPage.competitions
+  );
+  const isCompetitionStarted = useSelector(
+    (state) => state.competitionPage.isCompetitionStarted
+  );
+  const competition = useSelector((state) => state.competitionPage.competition);
+  const competitionWinner = useSelector(
+    (state) => state.competitionPage.competitionWinner
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("/api/competition")
-      .then((response) => response.data)
-      .then((data) => {
-        const competitionsCollectionObject = JSON.parse(data);
-        setCompetitions(competitionsCollectionObject.competitions);
-      });
-  }, []);
+    if (!isCompetitionStarted) dispatch(getCompetitions());
+  }, [isCompetitionStarted, dispatch]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setCompetitionWinner(null);
-    setCompetition(competitions.find((c) => c.title === e.target[0].value));
-    setIsSelectedCompetition(false);
+    dispatch(setCompetitionWinner(null));
+    dispatch(setIsCompetitionStarted(true));
+    dispatch(setCurrentCompetition(competition));
+    dispatch(createNextCompetition());
+  };
+
+  const handleCompetitionsSelectChange = (e) => {
+    const selectedCompetition = competitions.find(
+      (c) => c.title === e.target.value
+    );
+    dispatch(setCompetition(selectedCompetition));
   };
 
   return (
     <div className="container">
       <h1 className="text-center">Welcome</h1>
-      {competition ? (
+      {isCompetitionStarted ? (
         <Competition
-          competition={competition}
           setCompetition={setCompetition}
           setCompetitionWinner={setCompetitionWinner}
         />
@@ -42,11 +58,11 @@ const CompetitionsContainer = () => {
             <select
               name="competitionsSelect"
               id="competitionsSelect"
-              defaultValue={"DEFAULT"}
-              onChange={() => setIsSelectedCompetition(true)}
+              value={competition ? competition.title : "DEFAULT"}
+              onChange={handleCompetitionsSelectChange}
             >
               <option value="DEFAULT" disabled>
-                Choose a competition ...
+                Choose competition ...
               </option>
               {competitions.map((item, index) => (
                 <option key={index} value={item.title}>
@@ -55,7 +71,7 @@ const CompetitionsContainer = () => {
               ))}
             </select>
             <div className="competition-actions p-2" />
-            {isSelectedCompetition && (
+            {competition && (
               <>
                 <button type="submit" className="btn btn-success m-2">
                   Start competition
